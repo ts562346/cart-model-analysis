@@ -1,0 +1,1036 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={STAT 2450 Assignment 6 {[}40 pts{]}},
+  pdfauthor={B00841761},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{STAT 2450 Assignment 6 {[}40 pts{]}}
+\author{B00841761}
+\date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{problem-1-classification-with-cart-30-pts}{%
+\subsection{Problem 1: Classification with CART {[}30
+pts{]}}\label{problem-1-classification-with-cart-30-pts}}
+
+\hypertarget{preparing-the-data-0-pts}{%
+\subsubsection{Preparing the data {[}0
+pts{]}}\label{preparing-the-data-0-pts}}
+
+Download the data6a.csv dataframe from BS and use read.csv to read the
+data.
+
+Call `d' the resulting dataframe.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\AttributeTok{file=}\StringTok{\textquotesingle{}data6a.csv\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Which columns are categorical predictors?
+
+Use as.factor() to redefine each categorical variable as a factor.
+
+Apply the function `str' to d to check that the categorical columns are
+now factors
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#d$colname = as.factor(d$colname)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(d)}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\AttributeTok{file=}\StringTok{\textquotesingle{}data6a.csv\textquotesingle{}}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    394 obs. of  11 variables:
+##  $ x1 : int  104 116 127 116 133 145 139 107 113 141 ...
+##  $ x2 : int  102 83 45 26 97 30 24 67 100 63 ...
+##  $ x3 : int  13 15 19 6 0 0 0 12 16 0 ...
+##  $ x4 : int  123 170 459 434 70 67 358 430 353 168 ...
+##  $ x5 : int  110 144 129 115 117 104 185 92 79 135 ...
+##  $ x6 : chr  "Good" "Bad" "Medium" "Medium" ...
+##  $ x7 : int  35 71 57 25 32 55 79 35 68 44 ...
+##  $ x8 : int  16 11 11 17 16 17 15 12 11 12 ...
+##  $ x9 : chr  "Yes" "Yes" "No" "Yes" ...
+##  $ x10: chr  "Yes" "Yes" "Yes" "Yes" ...
+##  $ x11: chr  "Yes " "No" "No" "No" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{x6}\OtherTok{=}\FunctionTok{as.factor}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{x6)}
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{x9}\OtherTok{=}\FunctionTok{as.factor}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{x9)}
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{x10}\OtherTok{=}\FunctionTok{as.factor}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{x10)}
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{x11}\OtherTok{=}\FunctionTok{as.factor}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{x11)}
+\FunctionTok{str}\NormalTok{(d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    394 obs. of  11 variables:
+##  $ x1 : int  104 116 127 116 133 145 139 107 113 141 ...
+##  $ x2 : int  102 83 45 26 97 30 24 67 100 63 ...
+##  $ x3 : int  13 15 19 6 0 0 0 12 16 0 ...
+##  $ x4 : int  123 170 459 434 70 67 358 430 353 168 ...
+##  $ x5 : int  110 144 129 115 117 104 185 92 79 135 ...
+##  $ x6 : Factor w/ 3 levels "Bad","Good","Medium": 2 1 3 3 3 3 3 3 1 1 ...
+##  $ x7 : int  35 71 57 25 32 55 79 35 68 44 ...
+##  $ x8 : int  16 11 11 17 16 17 15 12 11 12 ...
+##  $ x9 : Factor w/ 2 levels "No","Yes": 2 2 1 2 2 2 1 1 2 2 ...
+##  $ x10: Factor w/ 2 levels "No","Yes": 2 2 2 2 1 1 1 2 2 2 ...
+##  $ x11: Factor w/ 2 levels "No","Yes ": 2 1 1 1 2 2 1 2 2 1 ...
+\end{verbatim}
+
+Use the following syntax to rename the column x11 as y.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(d)[}\FunctionTok{names}\NormalTok{(d) }\SpecialCharTok{==} \StringTok{\textquotesingle{}old.var.name\textquotesingle{}}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}new.var.name\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+Run the function `str' on d to check that the renaming has worked
+correctly.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(d)[}\FunctionTok{names}\NormalTok{(d) }\SpecialCharTok{==} \StringTok{\textquotesingle{}x11\textquotesingle{}}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}y\textquotesingle{}}
+\FunctionTok{str}\NormalTok{(d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    394 obs. of  11 variables:
+##  $ x1 : int  104 116 127 116 133 145 139 107 113 141 ...
+##  $ x2 : int  102 83 45 26 97 30 24 67 100 63 ...
+##  $ x3 : int  13 15 19 6 0 0 0 12 16 0 ...
+##  $ x4 : int  123 170 459 434 70 67 358 430 353 168 ...
+##  $ x5 : int  110 144 129 115 117 104 185 92 79 135 ...
+##  $ x6 : Factor w/ 3 levels "Bad","Good","Medium": 2 1 3 3 3 3 3 3 1 1 ...
+##  $ x7 : int  35 71 57 25 32 55 79 35 68 44 ...
+##  $ x8 : int  16 11 11 17 16 17 15 12 11 12 ...
+##  $ x9 : Factor w/ 2 levels "No","Yes": 2 2 1 2 2 2 1 1 2 2 ...
+##  $ x10: Factor w/ 2 levels "No","Yes": 2 2 2 2 1 1 1 2 2 2 ...
+##  $ y  : Factor w/ 2 levels "No","Yes ": 2 1 1 1 2 2 1 2 2 1 ...
+\end{verbatim}
+
+\hypertarget{goal}{%
+\section{Goal}\label{goal}}
+
+The goal of this problem is to model the binary response (column `y'),
+as a function of all other predictors (columns `x1' to `x10') available
+in dataframe `d'. You will use the `tree' library to fit a CART model to
+the data.
+
+\hypertarget{training-set}{%
+\section{Training set}\label{training-set}}
+
+Write a R code to define a training set (name it `dtrain') and a testing
+set (name it `dtest'.
+
+Use `ytrain' as the name of the response for the training set, and
+`ytest' as the name of the response for the testing set. `ytest' will be
+useful for the calculation of testing errors.
+
+For exact replication, we will use this random seed:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#set.seed(666)}
+\end{Highlighting}
+\end{Shaded}
+
+Use the `sample' function (with no replacement) to define a random index
+vector named `index' of 300 records from `d':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#index= sample(1:nrow(d), 300, replace=FALSE)}
+\end{Highlighting}
+\end{Shaded}
+
+Use `index' to define your training set (named `dtrain'), and its
+complement to define the testing set (named `dtest').
+
+Define a vector `ytrain' as the `y' column of `dtrain' and a vector
+`ytest' as the `y' column of `dtest':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# dtrain=d[index,]}
+\CommentTok{\# dtest =d[{-}index,]}
+\CommentTok{\# ytrain=d$y[index]}
+\CommentTok{\# ytest =d$y[{-}index]}
+\end{Highlighting}
+\end{Shaded}
+
+define dtrain, dtest, ytrain, ytest by sampling 300
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{666}\NormalTok{)}
+\FunctionTok{nrow}\NormalTok{(d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 394
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ns}\OtherTok{=}\DecValTok{300}
+\NormalTok{index}\OtherTok{=}\FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(d),ns,}\AttributeTok{replace=}\NormalTok{F)}
+\NormalTok{dtrain}\OtherTok{=}\NormalTok{d[index,]}
+\NormalTok{dtest }\OtherTok{=}\NormalTok{d[}\SpecialCharTok{{-}}\NormalTok{index,]}
+\NormalTok{ytrain}\OtherTok{=}\NormalTok{d}\SpecialCharTok{$}\NormalTok{y[index]}
+\NormalTok{ytest }\OtherTok{=}\NormalTok{d}\SpecialCharTok{$}\NormalTok{y[}\SpecialCharTok{{-}}\NormalTok{index]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{model-fitting-4-pts}{%
+\subsubsection{Model fitting {[}4 pts{]}}\label{model-fitting-4-pts}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Fit a tree model (call the resulting object `dtraintree') to the
+  training data, with `y' as the response and all the other variables as
+  predictors.
+\item
+  Use the `summary()' function to produce summary statistics about the
+  tree (save the summary into an object called `Sd').
+\item
+  What is the training error rate? Ans: 0.06667
+\item
+  How many terminal nodes does the tree have? Ans: 24
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tree)}
+\CommentTok{\# fit the CART model}
+\NormalTok{dtraintree}\OtherTok{=}\FunctionTok{tree}\NormalTok{(y}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data=}\NormalTok{dtrain)}
+\NormalTok{Sd}\OtherTok{=}\FunctionTok{summary}\NormalTok{(dtraintree)}
+\CommentTok{\# Print the summary object:}
+\NormalTok{Sd}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Classification tree:
+## tree(formula = y ~ ., data = dtrain)
+## Variables actually used in tree construction:
+## [1] "x6" "x5" "x2" "x1" "x4" "x7" "x3"
+## Number of terminal nodes:  24 
+## Residual mean deviance:  0.3581 = 98.84 / 276 
+## Misclassification error rate: 0.06667 = 20 / 300
+\end{verbatim}
+
+\hypertarget{tree-interpretation-3-pts}{%
+\subsubsection{Tree interpretation {[}3
+pts{]}}\label{tree-interpretation-3-pts}}
+
+Type in the name of the tree object in order to get a detailed text
+output.
+
+Pick one of the terminal nodes (leaves), and interpret the information
+displayed for this node (i.e.~explain the meaning of each term).
+
+Ans: 31) x5 \textgreater{} 142.5 8 10.590 No ( 0.62500 0.37500 ) *
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{30}
+\item
+\begin{verbatim}
+            --> an unique number for each node of the tree
+\end{verbatim}
+
+  x5 \textgreater{} 142.5 --\textgreater{} this is the split, equation
+  used to branch at the node 10.590 --\textgreater{} associated deviance
+  with the branch No --\textgreater{} the predicted value at the node (
+  0.62500 0.37500 ) --\textgreater{} the proportion probability of
+  values in that branch that are absent and present
+\end{enumerate}
+
+\begin{itemize}
+\item
+\begin{verbatim}
+              --> used to demote a terminal node
+\end{verbatim}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dtraintree}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## node), split, n, deviance, yval, (yprob)
+##       * denotes terminal node
+## 
+##   1) root 300 402.100 No ( 0.60667 0.39333 )  
+##     2) x6: Bad,Medium 243 295.300 No ( 0.70370 0.29630 )  
+##       4) x5 < 92.5 40  50.450 Yes  ( 0.32500 0.67500 )  
+##         8) x2 < 57 10  12.220 No ( 0.70000 0.30000 )  
+##          16) x1 < 110.5 5   0.000 No ( 1.00000 0.00000 ) *
+##          17) x1 > 110.5 5   6.730 Yes  ( 0.40000 0.60000 ) *
+##         9) x2 > 57 30  30.020 Yes  ( 0.20000 0.80000 )  
+##          18) x4 < 221 14  18.250 Yes  ( 0.35714 0.64286 )  
+##            36) x5 < 85.5 9   6.279 Yes  ( 0.11111 0.88889 ) *
+##            37) x5 > 85.5 5   5.004 No ( 0.80000 0.20000 ) *
+##          19) x4 > 221 16   7.481 Yes  ( 0.06250 0.93750 ) *
+##       5) x5 > 92.5 203 214.800 No ( 0.77833 0.22167 )  
+##        10) x1 < 124.5 96  59.740 No ( 0.90625 0.09375 )  
+##          20) x2 < 62.5 45   0.000 No ( 1.00000 0.00000 ) *
+##          21) x2 > 62.5 51  47.530 No ( 0.82353 0.17647 )  
+##            42) x7 < 66 30  36.650 No ( 0.70000 0.30000 )  
+##              84) x5 < 121 21  28.680 No ( 0.57143 0.42857 )  
+##               168) x1 < 110 9   6.279 No ( 0.88889 0.11111 ) *
+##               169) x1 > 110 12  15.280 Yes  ( 0.33333 0.66667 )  
+##                 338) x3 < 6.5 6   7.638 No ( 0.66667 0.33333 ) *
+##                 339) x3 > 6.5 6   0.000 Yes  ( 0.00000 1.00000 ) *
+##              85) x5 > 121 9   0.000 No ( 1.00000 0.00000 ) *
+##            43) x7 > 66 21   0.000 No ( 1.00000 0.00000 ) *
+##        11) x1 > 124.5 107 136.700 No ( 0.66355 0.33645 )  
+##          22) x5 < 122.5 44  57.680 Yes  ( 0.36364 0.63636 )  
+##            44) x1 < 137.5 33  45.720 Yes  ( 0.48485 0.51515 )  
+##              88) x6: Bad 6   0.000 No ( 1.00000 0.00000 ) *
+##              89) x6: Medium 27  35.590 Yes  ( 0.37037 0.62963 )  
+##               178) x5 < 109.5 10   0.000 Yes  ( 0.00000 1.00000 ) *
+##               179) x5 > 109.5 17  23.030 No ( 0.58824 0.41176 )  
+##                 358) x3 < 5 10  10.010 No ( 0.80000 0.20000 ) *
+##                 359) x3 > 5 7   8.376 Yes  ( 0.28571 0.71429 ) *
+##            45) x1 > 137.5 11   0.000 Yes  ( 0.00000 1.00000 ) *
+##          23) x5 > 122.5 63  47.960 No ( 0.87302 0.12698 )  
+##            46) x7 < 54.5 39  39.580 No ( 0.79487 0.20513 )  
+##              92) x2 < 63.5 24   8.314 No ( 0.95833 0.04167 ) *
+##              93) x2 > 63.5 15  20.730 No ( 0.53333 0.46667 )  
+##               186) x4 < 267 6   5.407 Yes  ( 0.16667 0.83333 ) *
+##               187) x4 > 267 9   9.535 No ( 0.77778 0.22222 ) *
+##            47) x7 > 54.5 24   0.000 No ( 1.00000 0.00000 ) *
+##     3) x6: Good 57  55.920 Yes  ( 0.19298 0.80702 )  
+##       6) x5 < 121 30   0.000 Yes  ( 0.00000 1.00000 ) *
+##       7) x5 > 121 27  36.500 Yes  ( 0.40741 0.59259 )  
+##        14) x2 < 35.5 5   0.000 No ( 1.00000 0.00000 ) *
+##        15) x2 > 35.5 22  25.780 Yes  ( 0.27273 0.72727 )  
+##          30) x5 < 142.5 14   7.205 Yes  ( 0.07143 0.92857 ) *
+##          31) x5 > 142.5 8  10.590 No ( 0.62500 0.37500 ) *
+\end{verbatim}
+
+\hypertarget{plot-of-tree-3-pts}{%
+\subsubsection{Plot of tree {[}3 pts{]}}\label{plot-of-tree-3-pts}}
+
+Create a plot of the tree, apply the text labels, and write a sentence
+to explain the meaning of the first node split.
+
+Ans: The first node split implies the best predictor (independent
+variables).
+
+Be careful with levels of factors if the node splits a categorical
+variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(dtraintree)}
+\FunctionTok{text}\NormalTok{(dtraintree)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment6Summer2022_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\hypertarget{testing-errors-4-pts}{%
+\subsubsection{Testing errors {[}4 pts{]}}\label{testing-errors-4-pts}}
+
+Use the `predict' function to predict the response on the testing data,
+and produce a confusion matrix comparing the test labels to the
+predicted test labels.
+
+Compute the value of the testing error rate (define a variable called
+`testrate' and calculate it from the confusion table). Apply the `round'
+function to print or report `testrate' with 4 digits after the decimal
+point.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dprune}\OtherTok{=}\FunctionTok{prune.misclass}\NormalTok{(dtraintree,}\AttributeTok{best=}\DecValTok{5}\NormalTok{)}
+
+\NormalTok{pred.test}\OtherTok{=}\FunctionTok{predict}\NormalTok{(dprune,dtest,}\AttributeTok{type=}\StringTok{"class"}\NormalTok{)}
+\NormalTok{ctable}\OtherTok{=}\FunctionTok{table}\NormalTok{(ytest,pred.test)}
+\FunctionTok{print}\NormalTok{(ctable)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       pred.test
+## ytest  No Yes 
+##   No   33   17
+##   Yes  11   33
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{testrate}\OtherTok{=}\NormalTok{ (}\FunctionTok{sum}\NormalTok{(ctable)}\SpecialCharTok{{-}}\FunctionTok{sum}\NormalTok{(}\FunctionTok{diag}\NormalTok{(ctable)))}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(ctable)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cross-validation-2-pts}{%
+\subsubsection{Cross-validation {[}2
+pts{]}}\label{cross-validation-2-pts}}
+
+Apply the cv.tree() function to the training set. Call the resulting
+object `dcv'. We will use this object in the next questions, especially
+to determine the optimal tree size.
+
+Choose the appropriate option for pruning your tree in your call to
+cv.tree (we want to measure lack of fit or deviance by the
+misclassification error rate). Print the `dcv' object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cv.tree}\NormalTok{(dtraintree)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $size
+##  [1] 24 23 22 20 19 17 16 15 14 12 11 10  8  7  6  5  3  2  1
+## 
+## $dev
+##  [1] 596.0753 587.1902 566.9817 562.8218 562.8218 546.0319 531.5219 531.5219
+##  [9] 511.1186 469.3916 465.2928 459.4699 459.7643 445.4942 441.1940 403.5816
+## [17] 385.5137 366.4929 405.3990
+## 
+## $k
+##  [1]      -Inf  4.650987  5.487169  5.629905  5.786253  7.382496  7.969718
+##  [8]  7.991981  8.205051  9.457856 10.716740 10.880066 11.341298 11.964990
+## [15] 12.204874 19.420484 24.702759 30.110549 50.871335
+## 
+## $method
+## [1] "deviance"
+## 
+## attr(,"class")
+## [1] "prune"         "tree.sequence"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dcv}\OtherTok{=}\FunctionTok{cv.tree}\NormalTok{(dtraintree, }\AttributeTok{FUN=}\NormalTok{prune.misclass)}
+\NormalTok{dcv}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $size
+##  [1] 24 23 18 15 13 12 10  6  5  3  2  1
+## 
+## $dev
+##  [1]  67  73  73  73  69  70  73  64  71  79  88 118
+## 
+## $k
+##  [1]      -Inf  1.000000  1.200000  1.333333  1.500000  2.000000  2.500000
+##  [8]  3.000000  4.000000  6.000000 14.000000 35.000000
+## 
+## $method
+## [1] "misclass"
+## 
+## attr(,"class")
+## [1] "prune"         "tree.sequence"
+\end{verbatim}
+
+\hypertarget{cv-plot-3-pts}{%
+\subsubsection{CV plot {[}3 pts{]}}\label{cv-plot-3-pts}}
+
+Use `dcv' to produce a plot with tree size on the x-axis and
+cross-validated classification error rate on the y-axis.
+
+Use the argument type=`b' in your plot and label your axis (x-label:
+tree size, y-label: error-rate).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(dcv}\SpecialCharTok{$}\NormalTok{size,dcv}\SpecialCharTok{$}\NormalTok{dev,}\AttributeTok{type=}\StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"tree size"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"error{-}rate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment6Summer2022_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\hypertarget{optimal-complexity-3-pts}{%
+\subsubsection{Optimal complexity {[}3
+pts{]}}\label{optimal-complexity-3-pts}}
+
+Which tree size corresponds to the lowest cross-validated classification
+error rate?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# compute bestsize from dcv:}
+\NormalTok{bestsize}\OtherTok{=}\NormalTok{dcv}\SpecialCharTok{$}\NormalTok{size[dcv}\SpecialCharTok{$}\NormalTok{dev}\SpecialCharTok{==}\FunctionTok{min}\NormalTok{(dcv}\SpecialCharTok{$}\NormalTok{dev)]}
+\CommentTok{\# and print it:}
+\NormalTok{bestsize}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6
+\end{verbatim}
+
+The tree with 6 terminal nodes has the lowest cross-validated
+classification error rate.
+
+It might be more logical to choose the first local minimum instead of
+the global minimum. What would this tree size be for this choice?
+
+We will assume that the optimal tree size is 5 for the next question.
+
+\hypertarget{pruning-3-pts}{%
+\subsubsection{Pruning {[}3 pts{]}}\label{pruning-3-pts}}
+
+Produce a pruned tree named `dprune' corresponding to the optimal tree
+size obtained using cross-validation. Here, overwrite this best size by
+5 to create a pruned tree with five terminal nodes. Plot the `dprune'
+tree and add text labels.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dprune}\OtherTok{=}\FunctionTok{prune.misclass}\NormalTok{(dtraintree,}\AttributeTok{best=}\DecValTok{5}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(dprune)}
+\FunctionTok{text}\NormalTok{(dprune)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment6Summer2022_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\hypertarget{compare-training-errors-3-pts}{%
+\subsubsection{Compare training errors {[}3
+pts{]}}\label{compare-training-errors-3-pts}}
+
+Compare the training error rates obtained with the pruned tree to those
+obtained with the unpruned trees.
+
+In order to do this, use the `predict' function and apply it to either
+the `dtraintree' object (unpruned tree model) or to the `dprune' object
+(pruned tree model).
+
+Do not forget to specify the argument `newdata' and the argument `type'.
+
+Which error rate is higher?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# calculate the prediction for the unpruned tree:}
+\NormalTok{predtrainu}\OtherTok{=} \FunctionTok{predict}\NormalTok{(dtraintree,}\AttributeTok{data=}\NormalTok{dtrain, }\AttributeTok{type=}\StringTok{"class"}\NormalTok{)}
+
+\CommentTok{\# calculate the prediction for the pruned tree:}
+\NormalTok{predtrainp}\OtherTok{=}\FunctionTok{predict}\NormalTok{(dprune,}\AttributeTok{data=}\NormalTok{dtrain, }\AttributeTok{type=}\StringTok{"class"}\NormalTok{)}
+
+\CommentTok{\# compute the confusion matrix of the training error for the unpruned tree model}
+
+\NormalTok{ctableu}\OtherTok{=} \FunctionTok{table}\NormalTok{(dtraintree}\SpecialCharTok{$}\NormalTok{y, predtrainu)}
+
+\CommentTok{\# print a message telling the reader that you will print the}
+\CommentTok{\# training error confusion matrix for the unpruned tree:}
+
+\FunctionTok{print}\NormalTok{(}\StringTok{"Training error confusion matrix for unpruned tree: "}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Training error confusion matrix for unpruned tree: "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# print the confusion matrix:}
+
+\NormalTok{ctableu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       predtrainu
+##         No Yes 
+##   No   174    8
+##   Yes   12  106
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# compute the training error rate of the unpruned tree}
+\CommentTok{\#trainrateu= (ctableu["No", "No"]+ctableu["No", "Yes"])}
+\NormalTok{trainrateu }\OtherTok{=}\NormalTok{ (}\DecValTok{174}\SpecialCharTok{+}\DecValTok{8}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{8}\SpecialCharTok{+}\DecValTok{106}\SpecialCharTok{+}\DecValTok{174}\SpecialCharTok{+}\DecValTok{12}\NormalTok{)}
+\NormalTok{trainrateu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6066667
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# print a message telling the reader that you will print the}
+\CommentTok{\# training error confusion matrix for the pruned tree:}
+
+\FunctionTok{print}\NormalTok{(}\StringTok{"Training error confusionn matrix for the pruned tree:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Training error confusionn matrix for the pruned tree:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# compute the confusion matrix of the training error for the pruned tree model}
+
+\NormalTok{ctablep}\OtherTok{=} \FunctionTok{table}\NormalTok{(dtraintree}\SpecialCharTok{$}\NormalTok{y, predtrainp)}
+
+\CommentTok{\# print it}
+\NormalTok{ctablep}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       predtrainp
+##         No Yes 
+##   No   142   40
+##   Yes   17  101
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# calculate the training error rate of the  pruned tree model}
+
+\NormalTok{trainratep}\OtherTok{=}\NormalTok{(}\DecValTok{142}\SpecialCharTok{+}\DecValTok{17}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{142}\SpecialCharTok{+}\DecValTok{17}\SpecialCharTok{+}\DecValTok{40}\SpecialCharTok{+}\DecValTok{101}\NormalTok{)}
+\NormalTok{trainratep}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.53
+\end{verbatim}
+
+The training error rates are 0.6066667 for the unpruned tree, and 0.53
+for the pruned tree. The training error rate is higher for the
+pruned/unpruned? tree.
+
+Ans: The training error rate is higher in the unpruned tree.
+
+\hypertarget{compare-testing-errors-2-pts}{%
+\subsubsection{Compare testing errors {[}2
+pts{]}}\label{compare-testing-errors-2-pts}}
+
+Compare the testing error rates on obtained with the pruned and with the
+unpruned trees.
+
+Which is higher?
+
+This is the same as before but for the records in the testing dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dtesttree}\OtherTok{=}\FunctionTok{tree}\NormalTok{(y}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data=}\NormalTok{dtest)}
+\NormalTok{dtestprune}\OtherTok{=}\FunctionTok{prune.misclass}\NormalTok{(dtesttree,}\AttributeTok{best=}\DecValTok{5}\NormalTok{)}
+
+\NormalTok{predtestu}\OtherTok{=} \FunctionTok{predict}\NormalTok{(dtesttree,}\AttributeTok{data=}\NormalTok{dtest, }\AttributeTok{type=}\StringTok{"class"}\NormalTok{)}
+\NormalTok{predtestp}\OtherTok{=} \FunctionTok{predict}\NormalTok{(dtestprune,}\AttributeTok{data=}\NormalTok{dtest, }\AttributeTok{type=}\StringTok{"class"}\NormalTok{)}
+
+\NormalTok{ctableu}\OtherTok{=} \FunctionTok{table}\NormalTok{(dtesttree}\SpecialCharTok{$}\NormalTok{y, predtestu)}
+
+\FunctionTok{print}\NormalTok{(}\StringTok{"Training error confusion matrix for unpruned tree: "}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Training error confusion matrix for unpruned tree: "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ctableu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       predtestu
+##        No Yes 
+##   No   49    1
+##   Yes   9   35
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{testrateu}\OtherTok{=}\NormalTok{ (}\DecValTok{49}\SpecialCharTok{+}\DecValTok{9}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{49}\SpecialCharTok{+}\DecValTok{1}\SpecialCharTok{+}\DecValTok{9}\SpecialCharTok{+}\DecValTok{35}\NormalTok{)}
+\NormalTok{testrateu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6170213
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ctablep}\OtherTok{=} \FunctionTok{table}\NormalTok{(dtesttree}\SpecialCharTok{$}\NormalTok{y, predtestp)}
+
+\FunctionTok{print}\NormalTok{(}\StringTok{"Training error confusionn matrix for the pruned tree:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Training error confusionn matrix for the pruned tree:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ctablep}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       predtestp
+##        No Yes 
+##   No   38   12
+##   Yes   5   39
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{testratep}\OtherTok{=}\NormalTok{ (}\DecValTok{38}\SpecialCharTok{+}\DecValTok{5}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{38}\SpecialCharTok{+}\DecValTok{12}\SpecialCharTok{+}\DecValTok{5}\SpecialCharTok{+}\DecValTok{39}\NormalTok{)}
+\NormalTok{testratep}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4574468
+\end{verbatim}
+
+The test error rates are 0.6170213 for the unpruned tree, and 0.4574468
+for the pruned tree. The test error rate is higher for the
+pruned/unpruned? tree.
+
+Ans: The error rate for the unpruned tree is higher.
+
+\newpage
+
+\hypertarget{gini-index-and-information-gain-total-10-pts}{%
+\subsection{Gini index and information gain {[}Total: 10
+pts{]}}\label{gini-index-and-information-gain-total-10-pts}}
+
+The method that you need to use in this problem will be discussed during
+the live lectures this week (Module 6 - Lecture 2)
+
+\hypertarget{gini-index-function-5-pts}{%
+\subsubsection{Gini index function {[}5
+pts{]}}\label{gini-index-function-5-pts}}
+
+Write a R function called mygini that takes two binary-valued vectors x
+and y (of same length) as arguments, and returns the Gini index of the
+split associated with the predictor x.
+
+The binary vectors x and y take only the values 0 and 1 and represent
+the predictor column and the response column of a dataframe.
+
+Hint: use the following formula, with a proper calculations of all
+probabilities:
+
+\[Gi =q_1*(1-p_{11}^2-p_{01}^2)+q_0*(1-p_{10}^2-p_{00}^2)\]
+
+\(q_1\) is the proportion of records in the node of the split that is
+found in the subset (\(x=1\)), and \(q_0=1-q_1\) is the proportion found
+in the complementary subset of the split (\(x=0\)).
+
+To calculate the conditional probabilities:
+
+\[ p_{ij}=P(Y=i|X=j)\]
+
+you can use boolean expressions (with the AND operator:\&) and sum of
+booleans.
+
+For example I can calculate the probability q1 like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{   x}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{   q1}\OtherTok{=}\FunctionTok{sum}\NormalTok{(x}\SpecialCharTok{==}\DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+Implement your function `mygini' here:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mygini }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(x,y) \{}
+\NormalTok{  q1}\OtherTok{=}\FunctionTok{sum}\NormalTok{(x}\SpecialCharTok{==}\DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(x)}
+\NormalTok{  q0}\OtherTok{=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{q1}
+\NormalTok{  p11}\OtherTok{=}\FunctionTok{sum}\NormalTok{(x}\SpecialCharTok{==}\DecValTok{1} \SpecialCharTok{\&}\NormalTok{ y}\SpecialCharTok{==}\DecValTok{1}\NormalTok{) }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(x}\SpecialCharTok{==}\DecValTok{1}\NormalTok{)}
+\NormalTok{  p01}\OtherTok{=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{p11}
+\NormalTok{  p10}\OtherTok{=}\FunctionTok{sum}\NormalTok{(x}\SpecialCharTok{==}\DecValTok{0} \SpecialCharTok{\&}\NormalTok{ y}\SpecialCharTok{==}\DecValTok{1}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(x}\SpecialCharTok{==}\DecValTok{0}\NormalTok{)}
+\NormalTok{  p00}\OtherTok{=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{p10}
+\NormalTok{  gini}\OtherTok{=}\NormalTok{q1}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{(p11)}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{{-}}\NormalTok{(p01)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{+}\NormalTok{q0}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{(p10)}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{{-}}\NormalTok{(p00)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+  \FunctionTok{return}\NormalTok{ (gini)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Check your function by calling it on the following data. You should get
+the indicated response.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{y }\OtherTok{=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\CommentTok{\# call your function mygini (uncomment the next line)}
+\FunctionTok{mygini}\NormalTok{(x,y) }\CommentTok{\# this should return the value: 0.4814815}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4814815
+\end{verbatim}
+
+\hypertarget{information-gain-function-5-pts}{%
+\subsubsection{Information gain function {[}5
+pts{]}}\label{information-gain-function-5-pts}}
+
+Write a function named `myinfogain' that calculates the information gain
+due to the split of a binary predictor x.
+
+Hint: The information gain can be calculated as:
+
+\[\Delta=H-q_1 H_{x=1}-q_0 H_{x=0}\] where \(H_y\) is the entropy of
+\(y\), and \(H_{x=a}\) is the conditional entropy of \(y\) given that we
+are in the subset \(x=a\).
+
+The detailed calculations of each term of this formula are as follows (P
+means probability of the event inside the bracket):
+
+\[ H=-(P(y=1)\log P(y=1) +P(y=0)\log P(y=0))   \\ 
+H_{x=1} = -(P(y=1|x=1)\log P(y=1|x=1) +P(y=0|x=1)\log P(y=0|x=1)) \\ H_{x=0}  = -(P(y=1|x=0)\log P(y=1|x=0) +P(y=0|x=0)\log P(y=0|x=0)) \\ q_1 = P(x=1)  \\ q_0=P(x=0)\]
+
+You can see most of the terms that need to be computed are of the form:
+\[ h(p)=   p\times \log(p)\]
+
+To calculate each of these term, you will use the function xlogx:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xlogx }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)\{}
+\ControlFlowTok{if}\NormalTok{(x}\SpecialCharTok{==}\DecValTok{0}\NormalTok{)r}\OtherTok{=}\DecValTok{0}
+\ControlFlowTok{if}\NormalTok{(x}\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{)r}\OtherTok{=}\NormalTok{x}\SpecialCharTok{*}\FunctionTok{log2}\NormalTok{(x)}
+\FunctionTok{return}\NormalTok{(r)}
+\NormalTok{\}}
+
+\CommentTok{\# for example this will calculate 0.3 * log 0.3}
+\NormalTok{p}\OtherTok{=}\FloatTok{0.3}
+\FunctionTok{xlogx}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.5210897
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# note that log(0) is {-} infinity but 0 * log (0) is well defined and should be 0}
+
+\NormalTok{p}\OtherTok{=}\DecValTok{0}
+\FunctionTok{print}\NormalTok{(}\StringTok{"This will fail : "}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "This will fail : "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p}\SpecialCharTok{*}\FunctionTok{log2}\NormalTok{(p)  }\CommentTok{\# will fail to produce 0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NaN
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\StringTok{"This is correct : 0*log(0)=0 :  "}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "This is correct : 0*log(0)=0 :  "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{xlogx}\NormalTok{(p)   }\CommentTok{\# will calculate the correct value: 0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+Implement the function `myinfogain' here:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myinfogain }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x,y)\{}
+
+\NormalTok{  p1}\OtherTok{=}\FunctionTok{sum}\NormalTok{(y}\SpecialCharTok{==}\DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(y)}
+\NormalTok{  p0}\OtherTok{=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{p1}
+  
+\NormalTok{  hy}\OtherTok{=}\SpecialCharTok{{-}}\NormalTok{(}\FunctionTok{xlogx}\NormalTok{(p0)}\SpecialCharTok{+}\FunctionTok{xlogx}\NormalTok{(p1))}
+  
+\NormalTok{  p1}\OtherTok{=}\FunctionTok{sum}\NormalTok{(y}\SpecialCharTok{==}\DecValTok{1} \SpecialCharTok{\&}\NormalTok{ x}\SpecialCharTok{==}\DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{( x}\SpecialCharTok{==}\DecValTok{1}\NormalTok{)}
+\NormalTok{  p0}\OtherTok{=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{p1}
+\NormalTok{  hx1}\OtherTok{=}\SpecialCharTok{{-}}\NormalTok{(}\FunctionTok{xlogx}\NormalTok{(p0)}\SpecialCharTok{+}\FunctionTok{xlogx}\NormalTok{(p1))}
+  
+\NormalTok{  p1}\OtherTok{=}\FunctionTok{sum}\NormalTok{(y}\SpecialCharTok{==}\DecValTok{1} \SpecialCharTok{\&}\NormalTok{ x}\SpecialCharTok{==}\DecValTok{0}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{( x}\SpecialCharTok{==}\DecValTok{0}\NormalTok{)}
+\NormalTok{  p0}\OtherTok{=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{p1}
+\NormalTok{  hx0}\OtherTok{=}\SpecialCharTok{{-}}\NormalTok{(}\FunctionTok{xlogx}\NormalTok{(p0)}\SpecialCharTok{+}\FunctionTok{xlogx}\NormalTok{(p1))}
+  
+\NormalTok{  q1}\OtherTok{=}\FunctionTok{sum}\NormalTok{(x}\SpecialCharTok{==}\DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(x)}
+\NormalTok{  q0}\OtherTok{=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{q1}
+  
+  
+\NormalTok{  delta}\OtherTok{=}\NormalTok{hy}\SpecialCharTok{{-}}\NormalTok{q1}\SpecialCharTok{*}\NormalTok{hx1}\SpecialCharTok{{-}}\NormalTok{q0}\SpecialCharTok{*}\NormalTok{hx0}
+  
+  
+  \FunctionTok{return}\NormalTok{(delta)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Check your function by calling it on the following data. You should get
+the indicated response.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{y}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\FunctionTok{myinfogain}\NormalTok{(x,y) }\CommentTok{\# this should produce the result: 0.1245112}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1245112
+\end{verbatim}
+
+\end{document}

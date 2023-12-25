@@ -1,0 +1,499 @@
+---
+title: "STAT 2450 Assignment 6 [40 pts]"
+author: "B00841761 "
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+##  Problem 1: Classification with CART [30 pts]
+
+### Preparing the data [0 pts]
+
+Download the data6a.csv dataframe from BS and use read.csv to read the data.
+
+Call 'd' the resulting dataframe.
+
+```{r}
+d <- read.csv(file='data6a.csv')
+```
+
+Which columns are categorical predictors?
+
+Use as.factor() to redefine each categorical variable as a factor.
+
+Apply the function 'str' to d to check that the categorical columns are now factors
+
+```{r}
+
+#d$colname = as.factor(d$colname)
+
+```
+
+
+```{r}
+rm(d)
+d <- read.csv(file='data6a.csv')
+str(d)
+d$x6=as.factor(d$x6)
+d$x9=as.factor(d$x9)
+d$x10=as.factor(d$x10)
+d$x11=as.factor(d$x11)
+str(d)
+
+
+```
+
+
+Use the following syntax to rename the column x11 as y.
+
+```{r}
+names(d)[names(d) == 'old.var.name'] <- 'new.var.name'
+```
+
+Run the function 'str' on d to check that the renaming has worked correctly.
+
+```{r}
+names(d)[names(d) == 'x11'] <- 'y'
+str(d)
+```
+
+
+Goal
+=====
+
+The goal of this problem is to model the binary response  (column 'y'), as a function of all other predictors (columns 'x1' to 'x10') available in dataframe 'd'. You will use the 'tree' library to fit a CART model to the data.
+
+
+Training set
+=============
+
+Write a R code to define a training set (name it 'dtrain') and a testing set (name it 'dtest'.
+
+Use 'ytrain' as the name of the response for the training set, and 'ytest' as the name of the response for the testing set. 'ytest' will be useful for the calculation of testing errors.
+
+For exact replication, we will use this random seed:
+
+```{r}
+#set.seed(666)
+```
+
+
+Use the 'sample' function (with no replacement) to define  a random index vector named 'index' of 300 records from 'd':
+
+```{r}
+
+#index= sample(1:nrow(d), 300, replace=FALSE)
+```
+
+Use 'index' to define your training set (named 'dtrain'), and its complement to define the testing set (named 'dtest').
+
+Define a vector 'ytrain' as the 'y' column of 'dtrain' and a vector 'ytest' as the  'y' column of 'dtest':
+
+```{r}
+# dtrain=d[index,]
+# dtest =d[-index,]
+# ytrain=d$y[index]
+# ytest =d$y[-index]
+```
+ 
+
+define dtrain, dtest, ytrain, ytest by sampling 300
+
+
+```{r}
+set.seed(666)
+nrow(d)
+ns=300
+index=sample(1:nrow(d),ns,replace=F)
+dtrain=d[index,]
+dtest =d[-index,]
+ytrain=d$y[index]
+ytest =d$y[-index]
+```
+
+
+
+### Model fitting [4 pts] 
+
+1. Fit a tree model (call the resulting object 'dtraintree') to the training data, with 'y' as the response and all the other variables as predictors. 
+
+2. Use the 'summary()' function to produce summary statistics about the tree (save the summary into an object called 'Sd').
+
+3. What is the training error rate? Ans: 0.06667
+
+4. How many terminal nodes does the tree have? Ans: 24
+
+```{r}
+library(tree)
+# fit the CART model
+dtraintree=tree(y~.,data=dtrain)
+Sd=summary(dtraintree)
+# Print the summary object:
+Sd
+```
+
+
+
+
+### Tree interpretation [3 pts] 
+
+Type in the name of the tree object in order to get a detailed
+text output. 
+
+Pick one of the terminal nodes (leaves), and interpret the
+information displayed for this node (i.e. explain the meaning of each term).
+
+Ans: 31) x5 > 142.5 8  10.590 No ( 0.62500 0.37500 ) *
+
+31)                 --> an unique number for each node of the tree
+x5 > 142.5          --> this is the split, equation used to branch at the node
+10.590              --> associated deviance with the branch
+No                  --> the predicted value at the node
+( 0.62500 0.37500 ) --> the proportion probability of values in that branch that are absent and present
+*                   --> used to demote a terminal node
+
+```{r}
+dtraintree
+
+```
+
+
+### Plot of tree [3 pts] 
+
+Create a plot of the tree, apply the text labels, and write a sentence to explain the meaning of the first node split.
+
+Ans: The first node split implies the best predictor (independent variables).
+
+Be careful with levels of factors if the node splits a categorical variable.
+
+
+```{r}
+plot(dtraintree)
+text(dtraintree)
+```
+
+
+### Testing errors [4 pts] 
+
+
+Use the 'predict' function to predict the response on the testing data, and produce a confusion matrix comparing the test labels to the predicted test labels.
+
+Compute the value of the testing error rate (define a variable called 'testrate' and calculate it from the confusion table). Apply the 'round' function to print or report 'testrate' with 4 digits after the decimal point.
+
+```{r}
+dprune=prune.misclass(dtraintree,best=5)
+
+pred.test=predict(dprune,dtest,type="class")
+ctable=table(ytest,pred.test)
+print(ctable)
+testrate= (sum(ctable)-sum(diag(ctable)))/sum(ctable)
+```
+
+
+### Cross-validation [2 pts] 
+
+Apply the cv.tree() function to the training set. Call the resulting object 'dcv'. We will use this object in the next questions, especially to  determine the optimal tree size.
+
+Choose the appropriate option for pruning your tree in your call to cv.tree (we want to measure lack of fit or deviance by the misclassification error rate). Print the 'dcv' object.
+
+
+```{r}
+cv.tree(dtraintree)
+dcv=cv.tree(dtraintree, FUN=prune.misclass)
+dcv
+```
+
+
+### CV plot [3 pts] 
+
+Use 'dcv' to produce a plot with tree size on the x-axis and cross-validated
+classification error rate on the y-axis.
+
+Use the argument type='b' in your plot and label your axis (x-label: tree size, y-label: error-rate).
+
+```{r}
+plot(dcv$size,dcv$dev,type='b', xlab="tree size", ylab = "error-rate")
+```
+
+
+### Optimal complexity [3 pts] 
+
+
+Which tree size corresponds to the lowest cross-validated classification error rate?
+
+```{r}
+# compute bestsize from dcv:
+bestsize=dcv$size[dcv$dev==min(dcv$dev)]
+# and print it:
+bestsize
+```
+
+The tree with `r bestsize` terminal nodes has the lowest cross-validated
+classification error rate.
+
+It might be more logical to choose the first local minimum instead of the global minimum. What would this tree size be for this choice?
+
+We will assume that the optimal tree size is 5 for the next question.
+
+
+### Pruning [3 pts] 
+
+Produce a pruned tree named 'dprune' corresponding to the optimal tree size 
+obtained using cross-validation. Here, overwrite this best size by 5 to create a pruned tree with five terminal nodes.  Plot the 'dprune' tree and add text labels.
+
+```{r}	 
+dprune=prune.misclass(dtraintree,best=5)
+plot(dprune)
+text(dprune)
+```
+
+### Compare training errors [3 pts] 
+
+Compare the training error rates obtained with the pruned tree  to those obtained with the unpruned trees.
+
+In order to do this, use the 'predict' function and apply it to either the 'dtraintree' object (unpruned tree model) or to the 'dprune' object (pruned tree model). 
+
+Do not forget to specify the argument 'newdata'  and the argument 'type'.
+
+Which error rate is higher? 
+
+```{r}
+
+# calculate the prediction for the unpruned tree:
+predtrainu= predict(dtraintree,data=dtrain, type="class")
+
+# calculate the prediction for the pruned tree:
+predtrainp=predict(dprune,data=dtrain, type="class")
+
+# compute the confusion matrix of the training error for the unpruned tree model
+
+ctableu= table(dtraintree$y, predtrainu)
+
+# print a message telling the reader that you will print the
+# training error confusion matrix for the unpruned tree:
+
+print("Training error confusion matrix for unpruned tree: ")
+
+# print the confusion matrix:
+
+ctableu
+
+
+# compute the training error rate of the unpruned tree
+#trainrateu= (ctableu["No", "No"]+ctableu["No", "Yes"])
+trainrateu = (174+8)/(8+106+174+12)
+trainrateu
+  
+# print a message telling the reader that you will print the
+# training error confusion matrix for the pruned tree:
+
+print("Training error confusionn matrix for the pruned tree:")
+
+# compute the confusion matrix of the training error for the pruned tree model
+
+ctablep= table(dtraintree$y, predtrainp)
+
+# print it
+ctablep
+
+# calculate the training error rate of the  pruned tree model
+
+trainratep=(142+17)/(142+17+40+101)
+trainratep
+```
+
+The training error rates are `r trainrateu` for the unpruned tree, and `r trainratep` for the pruned tree.  The training error rate is higher for the pruned/unpruned? tree.
+
+Ans: The training error rate is higher in the unpruned tree.
+
+### Compare testing errors [2 pts] 
+
+Compare the testing error rates on obtained with the pruned and with the unpruned trees. 
+
+Which is higher?
+
+This is the same as before but for the records in the testing dataset.
+
+```{r}
+dtesttree=tree(y~.,data=dtest)
+dtestprune=prune.misclass(dtesttree,best=5)
+
+predtestu= predict(dtesttree,data=dtest, type="class")
+predtestp= predict(dtestprune,data=dtest, type="class")
+
+ctableu= table(dtesttree$y, predtestu)
+
+print("Training error confusion matrix for unpruned tree: ")
+ctableu
+
+testrateu= (49+9)/(49+1+9+35)
+testrateu
+
+ctablep= table(dtesttree$y, predtestp)
+
+print("Training error confusionn matrix for the pruned tree:")
+ctablep
+
+testratep= (38+5)/(38+12+5+39)
+testratep
+```
+
+The test error rates are `r testrateu` for the unpruned tree, and `r testratep` for the pruned tree.  The test error rate is higher for the pruned/unpruned? tree.
+
+Ans: The error rate for the unpruned tree is higher.
+
+\newpage
+
+## Gini index and information  gain [Total: 10 pts]
+
+The method that you need to use in this problem will be discussed during the live lectures this week (Module 6 - Lecture 2)
+
+### Gini index function [5 pts]
+
+Write a R function called mygini that takes two binary-valued vectors x and y (of same length) as arguments, and returns the Gini index of the split associated with the predictor x.
+
+The binary vectors x and y take only the values 0 and 1 and represent the predictor column and the response column of a dataframe. 
+
+
+Hint: use the following formula, with a proper calculations of all probabilities:
+
+$$Gi =q_1*(1-p_{11}^2-p_{01}^2)+q_0*(1-p_{10}^2-p_{00}^2)$$
+
+
+
+$q_1$ is the proportion of records in the node of the split that is found in the subset  ($x=1$), and $q_0=1-q_1$ is the proportion found in the complementary subset of the split ($x=0$).
+
+To calculate the conditional probabilities:
+
+$$ p_{ij}=P(Y=i|X=j)$$
+ 
+you can use boolean expressions (with the AND operator:&) and sum of booleans.
+
+For example I can calculate the probability q1 like this:
+
+```{r}
+   x=c(1,1,1,0,0,0,0,1,0)
+   q1=sum(x==1)/length(x)
+```
+
+
+
+Implement your function 'mygini' here:
+
+```{r}
+mygini = function(x,y) {
+  q1=sum(x==1)/length(x)
+  q0=1-q1
+  p11=sum(x==1 & y==1) /sum(x==1)
+  p01=1-p11
+  p10=sum(x==0 & y==1) / sum(x==0)
+  p00=1-p10
+  gini=q1*(1-(p11)^2-(p01)^2)+q0*(1-(p10)^2-(p00)^2)
+  return (gini)
+}
+
+```
+
+Check your function by calling it on the following data. You should get the indicated response.
+
+```{r}
+x=c(1,1,0,1,1,1,0,0,1)
+y =c(1,1,0,1,0,0,0,1,0)
+# call your function mygini (uncomment the next line)
+mygini(x,y) # this should return the value: 0.4814815
+
+```
+
+
+
+### Information gain function [5 pts]
+
+Write a function named 'myinfogain' that calculates the information gain due to the split of a binary predictor x.
+
+Hint: The information gain can be calculated as:
+
+$$\Delta=H-q_1 H_{x=1}-q_0 H_{x=0}$$
+where $H_y$ is the entropy of $y$, and $H_{x=a}$ is the conditional entropy of $y$ given that we are in the subset $x=a$.
+
+
+
+The detailed calculations of each term of this formula are as follows (P means probability of the event inside the bracket):
+
+$$ H=-(P(y=1)\log P(y=1) +P(y=0)\log P(y=0))   \\ 
+H_{x=1} = -(P(y=1|x=1)\log P(y=1|x=1) +P(y=0|x=1)\log P(y=0|x=1)) \\ H_{x=0}  = -(P(y=1|x=0)\log P(y=1|x=0) +P(y=0|x=0)\log P(y=0|x=0)) \\ q_1 = P(x=1)  \\ q_0=P(x=0)$$
+
+
+You can see most of the terms that need to be computed are of the form:
+$$ h(p)=   p\times \log(p)$$
+
+To calculate each of these term, you will use the  function xlogx:
+
+
+```{r}
+xlogx <- function(x){
+if(x==0)r=0
+if(x>0)r=x*log2(x)
+return(r)
+}
+
+# for example this will calculate 0.3 * log 0.3
+p=0.3
+xlogx(p)
+
+# note that log(0) is - infinity but 0 * log (0) is well defined and should be 0
+
+p=0
+print("This will fail : ")
+
+p*log2(p)  # will fail to produce 0
+
+print("This is correct : 0*log(0)=0 :  ")
+
+xlogx(p)   # will calculate the correct value: 0
+
+```
+
+Implement the function 'myinfogain' here:
+
+```{r}
+myinfogain <- function(x,y){
+
+  p1=sum(y==1)/length(y)
+  p0=1-p1
+  
+  hy=-(xlogx(p0)+xlogx(p1))
+  
+  p1=sum(y==1 & x==1)/sum( x==1)
+  p0=1-p1
+  hx1=-(xlogx(p0)+xlogx(p1))
+  
+  p1=sum(y==1 & x==0)/sum( x==0)
+  p0=1-p1
+  hx0=-(xlogx(p0)+xlogx(p1))
+  
+  q1=sum(x==1)/length(x)
+  q0=1-q1
+  
+  
+  delta=hy-q1*hx1-q0*hx0
+  
+  
+  return(delta)
+}
+```
+
+
+Check your function by calling it on the following data. You should get the indicated response.
+
+
+
+```{r}
+x=c(1, 1, 1, 1, 0, 0, 0, 1, 0, 0)
+y=c(1, 1, 1, 0, 1, 0, 0, 0, 0, 0)
+myinfogain(x,y) # this should produce the result: 0.1245112
+```
+
+
+
